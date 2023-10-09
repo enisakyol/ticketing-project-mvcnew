@@ -38,6 +38,16 @@ super.deleteById(projectCode);
 
     @Override
     public void update(ProjectDTO object) {
-super.update(object.getProjectCode(),object);
+
+        if(object.getProjectCode()==null){
+            object.setProjectStatus(findById(object.getProjectCode()).getProjectStatus());
+        }
+
+        super.update(object.getProjectCode(),object);
+    }
+
+    @Override
+    public void complete(ProjectDTO project) {
+        project.setProjectStatus(Status.COMPLETE);
     }
 }
